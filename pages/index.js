@@ -1,33 +1,44 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Stripe from 'stripe';
 import styles from '../styles/Home.module.css';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 import Modal from '@mui/material/Modal';
 
+import { ProductCard } from '../components';
+
 export default function Home(props) {
-  const products = props.products;
-  const [showModal, setShowModal] = useState();
-  const handleOpen = () => setShowModal(true);
+  const data = props.products;
+  const [showModal, setShowModal] = useState(false);
+  const [currentImage, setCurrentImage] = useState();
+  const cartItemCount = 0; //Todo: set to the value of the user's cart length
+
   const handleClose = () => setShowModal(false);
+
+  const handleOpen = (image) => {
+    setShowModal(true);
+    setCurrentImage(image);
+  };
 
   const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '40vw',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+  };
+
+  const cartIconStyle = {
+    position: 'absolute',
+    top: '46px',
+    right: '40px',
+    fontSize: '3em',
   };
 
   return (
@@ -39,6 +50,8 @@ export default function Home(props) {
       </Head>
 
       <main className={styles.main}>
+        <span className={styles.cartQuantityIndicator}>{cartItemCount}</span>
+        <ShoppingCartCheckoutOutlinedIcon style={cartIconStyle} />
         <h1 className={styles.title}>Michael Ahearn</h1>
         <h2>
           My Music <LibraryMusicIcon />
@@ -48,65 +61,27 @@ export default function Home(props) {
         </p>
 
         <div className={styles.grid}>
-          {products?.map((product) => (
-            <Card
-              sx={{ display: 'flex', justifyContent: 'space-between' }}
-              key={product.id}
-              style={{ marginBottom: '1rem', width: '100%' }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  alignItems: 'flex-start',
-                }}
-              >
-                <CardContent>
-                  <Typography gutterBottom variant='h5' component='div'>
-                    {product.name}
-                  </Typography>
-                  <Typography variant='body2' color='text.secondary'>
-                    {product.description}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size='large' onClick={handleOpen}>
-                    View Sample
-                  </Button>
-                  <Button size='large'>Add to Cart</Button>
-                </CardActions>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                {product.images.length > 0 && (
-                  <CardMedia
-                    component='img'
-                    sx={{ width: 300 }}
-                    image={product.images[0]}
-                    alt={product.name}
-                  />
-                )}
-              </Box>
-            </Card>
+          {data?.map((item) => (
+            <ProductCard data={item} handleOpen={handleOpen} key={item.id} />
           ))}
         </div>
+      </main>
+
+      <div>
         <Modal
           open={showModal}
           onClose={handleClose}
           contentLabel='Sample score'
         >
-          <button onClick={handleClose}>Close Modal</button>
           <Box sx={modalStyle}>
-            Larger image of score goes here - just got to figure out how to do
-            it.
+            <img
+              src={currentImage}
+              alt='sample score'
+              style={{ height: '100%', maxWidth: '90vw' }}
+            />
           </Box>
         </Modal>
-      </main>
+      </div>
 
       <footer className={styles.footer}>
         &copy; Michael Ahearn, Sydney 2022
@@ -117,10 +92,14 @@ export default function Home(props) {
 
 export const getServerSideProps = async () => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
-    apiVersion: '2020-08-27 ',
+    apiVersion: '2020-08-27',
   });
-  const response = await stripe.products.list();
-  const products = response.data;
+
+  const productsWithPrices = await stripe.prices.list({
+    expand: ['data.product'], // 🎉 Give me the product data too
+  });
+  const products = productsWithPrices.data;
+
   return {
     props: {
       products,
