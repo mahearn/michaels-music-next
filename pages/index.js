@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 import styles from '../styles/Home.module.css';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import Box from '@mui/material/Box';
+import Image from 'next/image';
 import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 import Modal from '@mui/material/Modal';
 
@@ -74,7 +75,7 @@ export default function Home(props) {
           contentLabel='Sample score'
         >
           <Box sx={modalStyle}>
-            <img
+            <Image
               src={currentImage}
               alt='sample score'
               style={{ height: '100%', maxWidth: '90vw' }}
