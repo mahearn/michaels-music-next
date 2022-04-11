@@ -1,12 +1,20 @@
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
 .grid {
   width: 100%;
   flex-direction: column;
 }
 
+.homeLink {
+  margin: 1em;
+}
+
 @media (min-width: 600px) {
   .container {
-    padding: 0 2rem;
-    margin: 0 auto;
     width: 50vw;
   }
 
@@ -20,37 +28,6 @@
     flex-direction: column;
     justify-content: left;
     align-items: flex-start;
-  }
-
-  .cartQuantityIndicator {
-    position: absolute;
-    top: 26px;
-    right: 58px;
-    font-size: 1.25rem;
-    color: red;
-  }
-
-  .cartIcon {
-    position: absolute;
-    top: 46px;
-    right: 40px;
-    font-size: 3em;
-  }
-
-  .footer {
-    display: flex;
-    flex: 1;
-    padding: 2rem 0;
-    border-top: 1px solid #eaeaea;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .footer a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
   }
 
   .title a {
@@ -67,12 +44,13 @@
   .title {
     margin: 0;
     line-height: 1.15;
-    font-size: 4rem;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 2em;
   }
 
-  .title,
-  .description {
-    text-align: center;
+  .sortButton {
+    align-self: flex-end;
   }
 
   .description {
@@ -89,8 +67,7 @@
 
   .card {
     width: 100%;
-    margin: 1rem;
-    padding: 1.5rem;
+    margin: 1.5em 0;
     text-align: left;
     text-decoration: none;
     border: 1px solid #eaeaea;
@@ -119,5 +96,50 @@
   .logo {
     height: 1em;
     margin-left: 0.5rem;
+  }
+
+  /* shopping cart page styles */
+  .cartListContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 75%;
+    border-bottom: 1px solid lightgrey;
+  }
+
+  .cartListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 1em;
+  }
+
+  .cartListItemHeading {
+    color: darkslategrey;
+    font-weight: 600;
+    margin-bottom: 1em;
+  }
+
+  .cartListItemTotal {
+    color: darkslategrey;
+    font-weight: 600;
+    margin: 1em 0;
+  }
+
+  .footer {
+    display: flex;
+    flex: 1;
+    padding: 2rem 0;
+    border-top: 1px solid #eaeaea;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
   }
 }

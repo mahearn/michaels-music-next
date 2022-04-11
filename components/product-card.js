@@ -7,12 +7,16 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styles from '../styles/Home.module.css';
 
-const ProductCard = ({ data, handleOpen }) => {
+const ProductCard = ({ data, handleOpen, addToCart }) => {
   const { id, product, unit_amount } = data;
   const { name, description, metadata, images } = product;
 
   function onClickSample() {
     handleOpen(images[0]);
+  }
+
+  function onClickAddToCart() {
+    addToCart(data);
   }
 
   function convertPrice(price) {
@@ -39,19 +43,28 @@ const ProductCard = ({ data, handleOpen }) => {
           <Typography gutterBottom variant='h5' component='div'>
             {name}
           </Typography>
-          {/* <Typography color='text.secondary'>
-            {metadata.category}
-          </Typography> */}
           <Typography variant='body2' color='text.secondary'>
             {description}
+          </Typography>
+          {metadata.timing && (
+            <Typography color='text.secondary'>
+              Duration: {metadata.timing}
+            </Typography>
+          )}
+          <Typography variant='title' color='inherit' noWrap>
+            &nbsp;
           </Typography>
           <Typography color='text.secondary'>${convertedPrice}</Typography>
         </CardContent>
         <CardActions>
-          <Button size='large' onClick={onClickSample}>
-            View Sample
+          {images[0] && (
+            <Button size='large' onClick={onClickSample}>
+              View Sample
+            </Button>
+          )}
+          <Button size='large' onClick={onClickAddToCart}>
+            Add to Cart
           </Button>
-          <Button size='large'>Add to Cart</Button>
         </CardActions>
       </Box>
       <Box
