@@ -1,0 +1,50 @@
+.navbarContainer {
+  padding: 0 10px;
+  border-bottom: 2px solid lightgray;
+}
+
+.branding {
+  display: flex;
+  gap: 12px;
+}
+
+.logo {
+  margin-top: 28px;
+}
+
+.navbarGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listGroup {
+  display: flex;
+  gap: 4em;
+  justify-content: space-around;
+  align-items: center;
+  align-content: flex-end;
+  list-style-type: none;
+}
+
+.list {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.cartIconContainer {
+  position: relative;
+}
+
+.cartQuantityIndicator {
+  position: absolute;
+  top: -14px;
+  right: 12px;
+  font-size: 1rem;
+  color: red;
+}
+
+.cartIcon {
+  font-size: 2em;
+}
