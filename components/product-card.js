@@ -79,6 +79,7 @@ const ProductCard = ({ data, handleOpen, addToCart }) => {
             sx={{ width: 300 }}
             image={images[0]}
             alt={product.name}
+            onClick={onClickSample}
           />
         )}
       </Box>
