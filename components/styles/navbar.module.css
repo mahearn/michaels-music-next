@@ -3,15 +3,25 @@
   border-bottom: 2px solid lightgray;
 }
 
+.branding {
+  display: flex;
+  gap: 12px;
+}
+
+.logo {
+  margin-top: 28px;
+}
+
 .navbarGroup {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
 
 .listGroup {
   display: flex;
-  gap: 20px;
+  gap: 4em;
   justify-content: space-around;
   align-items: center;
   align-content: flex-end;
@@ -30,7 +40,7 @@
 .cartQuantityIndicator {
   position: absolute;
   top: -14px;
-  right: 10px;
+  right: 12px;
   font-size: 1rem;
   color: red;
 }

@@ -1,19 +1,16 @@
-import Link from 'next/link';
-import Stripe from 'stripe';
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>
-        My Music <LibraryMusicIcon />
-      </h2>
-      <Link href='/music-scores'>
-        <a className={styles.description}>
-          Browse and purchase original sheet music here.
-        </a>
-      </Link>
+    <div className={styles.heroImage}>
+      <Image
+        src='/images/ricardo-gomez-angel-TPvLvY67VlI-unsplash.jpeg'
+        alt='hero image'
+        layout='fill'
+        priority='true'
+      />
+      <h2 className={styles.heroTitle}>My Music</h2>
     </div>
   );
 }

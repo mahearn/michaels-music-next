@@ -61,32 +61,29 @@ const MusicScores = (props) => {
       {/* <Button onClick={sortByCategory} className={styles.sortButton}>
           Sort by category
         </Button> */}
-      {sortedItems.length === 0 && 'Loading...'}
-      {sortedItems?.map((item) => (
-        <ProductCard
-          data={item}
-          handleOpen={handleOpen}
-          addToCart={addToCart}
-          key={item.id}
-        />
-      ))}
-      <div>
-        <Modal
-          open={showModal}
-          onClose={handleClose}
-          contentLabel='Sample score'
-        >
-          <Box sx={modalStyle} style={{ height: '90vh', width: '40vw' }}>
-            <Image
-              loader={() => currentImage}
-              src={currentImage}
-              alt='sample score'
-              layout='fill'
-              objectFit='contain'
-            />
-          </Box>
-        </Modal>
+      <div className={styles.grid}>
+        {sortedItems.length === 0 && 'Loading...'}
+        {sortedItems?.map((item) => (
+          <ProductCard
+            data={item}
+            handleOpen={handleOpen}
+            addToCart={addToCart}
+            key={item.id}
+          />
+        ))}
       </div>
+
+      <Modal open={showModal} onClose={handleClose} contentLabel='Sample score'>
+        <Box sx={modalStyle} style={{ height: '90vh', width: '40vw' }}>
+          <Image
+            loader={() => currentImage}
+            src={currentImage}
+            alt='sample score'
+            layout='fill'
+            objectFit='contain'
+          />
+        </Box>
+      </Modal>
     </div>
   );
 };

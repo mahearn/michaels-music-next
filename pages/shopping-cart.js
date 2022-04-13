@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import getStripe from '../lib/get-stripe';
 import Context from '../store/context';
 import Button from '@mui/material/Button';
 import axios from 'axios';
@@ -7,14 +8,13 @@ import styles from '../styles/Home.module.css';
 const ShoppingCart = () => {
   const { state, actions } = useContext(Context);
   const itemList = state.cartContents;
+  const [redirecting, setRedirecting] = useState(false);
   const total = Number(state.total / 100).toFixed(2);
-
-  console.log(itemList);
 
   const redirectToCheckout = async () => {
     const {
       data: { id },
-    } = await axios.post('/api/checkout_sessions', {
+    } = await axios.post('/api/checkout_sessions/', {
       items: itemList?.map((item) => ({
         price: item.id,
         quantity: 1,

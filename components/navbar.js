@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 import Context from '../store/context';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import styles from './styles/navbar.module.css';
 
 const NavBar = (props) => {
@@ -12,7 +13,10 @@ const NavBar = (props) => {
   return (
     <div className={styles.navbarContainer}>
       <div className={styles.navbarGroup}>
-        <h1 className={styles.title}>Michael Ahearn</h1>
+        <div className={styles.branding}>
+          <LibraryMusicIcon className={styles.logo} />
+          <h1 className={styles.title}>Michael Ahearn</h1>
+        </div>
         <ul className={styles.listGroup}>
           <li className={styles.listItem}>
             <Link href='/biography'>

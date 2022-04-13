@@ -11,13 +11,11 @@ const Layout = ({ children }) => {
   return (
     <div className={styles.container}>
       <Header />
-      <div className={styles.homeLink}>
-        {pathname !== '/' && (
-          <Link href='/'>
-            <a>&larr; Home</a>
-          </Link>
-        )}
-      </div>
+      {pathname !== '/' && (
+        <Link href='/'>
+          <a>&larr; Home</a>
+        </Link>
+      )}
       <main className={styles.main}>{children}</main>
       <Footer />
     </div>
