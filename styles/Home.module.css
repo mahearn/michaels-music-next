@@ -38,11 +38,16 @@
   line-height: 1em;
 }
 
+.card img {
+  /* don't show image on mobile devices */
+  display: none;
+}
+
 .homeLink {
   margin: 0;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .container {
     position: relative;
     width: 100%;
@@ -92,6 +97,14 @@
     color: #fff;
   }
 
+  .filterTool {
+    margin-bottom: 10px;
+  }
+
+  .selectFilterComponent {
+    min-width: 120px;
+  }
+
   .sortButton {
     align-self: flex-end;
   }
@@ -104,8 +117,9 @@
 
   .grid {
     display: grid;
+    grid-template-columns: 1fr;
     gap: 1em;
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: flex-start;
   }
 
   .card {
@@ -134,6 +148,10 @@
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.5;
+  }
+
+  .card img {
+    display: inline-block;
   }
 
   /* shopping cart page styles */
