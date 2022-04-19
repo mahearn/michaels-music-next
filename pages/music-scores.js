@@ -65,8 +65,6 @@ const MusicScores = (props) => {
     setItems(filteredData);
   }, [selectedCategory, products]);
 
-  console.log(products);
-
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -118,7 +116,7 @@ const MusicScores = (props) => {
       </div>
 
       <Modal open={showModal} onClose={handleClose} contentLabel='Sample score'>
-        <Box sx={modalStyle} style={{ height: '90vh', width: '40vw' }}>
+        <Box sx={modalStyle} style={{ height: '90vh', width: '68vw' }}>
           <Image
             loader={() => currentImage}
             src={currentImage}
@@ -138,6 +136,10 @@ MusicScores.propTypes = {
 
 export default MusicScores;
 
+/* 
+  Following function uses server to get the secret key and products 
+  from Stripe, so that it never gets exposed on the frontend.
+*/
 export const getServerSideProps = async () => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
     apiVersion: '2020-08-27',

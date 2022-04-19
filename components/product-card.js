@@ -29,7 +29,7 @@ const ProductCard = ({ data, handleOpen, addToCart }) => {
 
   return (
     <Card
-      sx={{ display: 'flex', justifyContent: 'space-between' }}
+      // sx={{ display: 'flex', justifyContent: 'space-between' }}
       className={styles.card}
     >
       <Box
