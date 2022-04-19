@@ -1,19 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Stripe from 'stripe';
 import Box from '@mui/material/Box';
 import Image from 'next/image';
+import PropTypes from 'prop-types';
 import Modal from '@mui/material/Modal';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Context from '../store/context';
 import ProductCard from '../components/product-card';
 
 import styles from '../styles/Home.module.css';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const MusicScores = (props) => {
-  const items = props.products;
+  const products = props.products;
   const { actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
-  const [sortedItems, setSortedItems] = useState(items);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [items, setItems] = useState(products);
 
   const handleClose = () => setShowModal(false);
 
@@ -27,11 +35,8 @@ const MusicScores = (props) => {
     actions({ type: 'ADD', payload: { id, product, unit_amount } });
   }
 
-  function getCartFromLocalStorage() {
-    const cart = actions({
-      type: 'RESTORE_CART_FROM_STORAGE',
-      payload: null,
-    });
+  function handleFilterChange(event) {
+    setSelectedCategory(event.target.value);
   }
 
   function sortByCategory(items) {
@@ -43,12 +48,29 @@ const MusicScores = (props) => {
     setSortedItems(sortedItems);
   }
 
+  useEffect(() => {
+    function filterByCategory() {
+      if (selectedCategory === '') {
+        return products;
+      } else {
+        const filteredProducts = products?.filter(
+          (item) => item.product.metadata.category === selectedCategory
+        );
+        return filteredProducts;
+      }
+    }
+
+    const filteredData = filterByCategory();
+
+    setItems(filteredData);
+  }, [selectedCategory, products]);
+
   const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '40vw',
+    width: '100%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -61,9 +83,29 @@ const MusicScores = (props) => {
       {/* <Button onClick={sortByCategory} className={styles.sortButton}>
           Sort by category
         </Button> */}
+      <form className={styles.filterTool}>
+        <FormControl>
+          <InputLabel htmlFor='category'>Filter by: </InputLabel>
+          <Select
+            value={selectedCategory}
+            onChange={handleFilterChange}
+            className={styles.selectFilterComponent}
+          >
+            <MenuItem value=''>None</MenuItem>
+            <MenuItem value='Solo classical guitar'>
+              Solo classical guitar
+            </MenuItem>
+            <MenuItem value='Solo acoustic guitar'>
+              Solo acoustic guitar
+            </MenuItem>
+            <MenuItem value='Solo instrumental'>Solo instrumental</MenuItem>
+            <MenuItem value='Chamber ensemble'>Chamber ensemble</MenuItem>
+          </Select>
+        </FormControl>
+      </form>
       <div className={styles.grid}>
-        {sortedItems.length === 0 && 'Loading...'}
-        {sortedItems?.map((item) => (
+        {items.length === 0 && 'Loading...'}
+        {items?.map((item) => (
           <ProductCard
             data={item}
             handleOpen={handleOpen}
@@ -74,7 +116,7 @@ const MusicScores = (props) => {
       </div>
 
       <Modal open={showModal} onClose={handleClose} contentLabel='Sample score'>
-        <Box sx={modalStyle} style={{ height: '90vh', width: '40vw' }}>
+        <Box sx={modalStyle} style={{ height: '90vh', width: '68vw' }}>
           <Image
             loader={() => currentImage}
             src={currentImage}
@@ -88,8 +130,16 @@ const MusicScores = (props) => {
   );
 };
 
+MusicScores.propTypes = {
+  props: PropTypes.object,
+};
+
 export default MusicScores;
 
+/* 
+  Following function uses server to get the secret key and products 
+  from Stripe, so that it never gets exposed on the frontend.
+*/
 export const getServerSideProps = async () => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
     apiVersion: '2020-08-27',

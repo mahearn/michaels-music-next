@@ -1,6 +1,18 @@
 .navbarContainer {
-  padding: 0 10px;
+  background-color: ghostwhite;
+  width: 100%;
+  height: 54px;
+  padding: 0 1em;
   border-bottom: 2px solid lightgray;
+}
+
+.stickyNav {
+  position: fixed;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: all 0.5s;
 }
 
 .branding {
@@ -9,7 +21,12 @@
 }
 
 .logo {
-  margin-top: 28px;
+  margin-top: 14px;
+}
+
+.companyName {
+  font-size: 1.125em;
+  font-weight: 600;
 }
 
 .navbarGroup {
@@ -19,32 +36,58 @@
   align-items: center;
 }
 
-.listGroup {
-  display: flex;
-  gap: 4em;
-  justify-content: space-around;
-  align-items: center;
-  align-content: flex-end;
-  list-style-type: none;
-}
-
 .list {
   font-size: 1em;
   font-weight: 400;
 }
 
-.cartIconContainer {
-  position: relative;
+.listGroup {
+  display: none;
 }
 
-.cartQuantityIndicator {
-  position: absolute;
-  top: -14px;
-  right: 12px;
-  font-size: 1rem;
-  color: red;
+.cartIconContainer {
+  position: relative;
+  display: flex;
+  gap: 6px;
+}
+
+.cartTotal {
+  align-self: center;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .cartIcon {
   font-size: 2em;
+}
+
+.hamburger-wrapper {
+  display: block;
+}
+
+@media (min-width: 991px) {
+  .navbarContainer {
+    height: 70px;
+  }
+
+  .companyName {
+    font-size: 1.5em;
+  }
+
+  .logo {
+    margin-top: 22px;
+  }
+
+  .listGroup {
+    display: flex;
+    gap: 2em;
+    justify-content: space-around;
+    align-items: center;
+    align-content: flex-end;
+    list-style-type: none;
+  }
+
+  .hamburgerWrapper {
+    display: none;
+  }
 }

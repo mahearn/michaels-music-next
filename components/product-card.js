@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import LaunchIcon from '@mui/icons-material/Launch';
 import styles from '../styles/Home.module.css';
 
 const ProductCard = ({ data, handleOpen, addToCart }) => {
@@ -28,7 +29,7 @@ const ProductCard = ({ data, handleOpen, addToCart }) => {
 
   return (
     <Card
-      sx={{ display: 'flex', justifyContent: 'space-between' }}
+      // sx={{ display: 'flex', justifyContent: 'space-between' }}
       className={styles.card}
     >
       <Box
@@ -51,20 +52,35 @@ const ProductCard = ({ data, handleOpen, addToCart }) => {
               Duration: {metadata.timing}
             </Typography>
           )}
+          <Typography>
+            {!name.includes('Cloudmaker') && (
+              <>
+                <a
+                  href='https://soundcloud.com/michael-ahearn-1/tracks'
+                  target='_blank'
+                  rel='noreferrer'
+                  className={styles.externalLink}
+                >
+                  Listen on soundcloud
+                </a>{' '}
+                <LaunchIcon />
+              </>
+            )}
+          </Typography>
           <Typography variant='title' color='inherit' noWrap>
             &nbsp;
           </Typography>
           <Typography color='text.secondary'>${convertedPrice}</Typography>
         </CardContent>
         <CardActions>
-          {images[0] && (
-            <Button size='large' onClick={onClickSample}>
-              View Sample
-            </Button>
-          )}
           <Button size='large' onClick={onClickAddToCart}>
             Add to Cart
           </Button>
+          {images[0] && (
+            <Button size='large' onClick={onClickSample}>
+              Sample page
+            </Button>
+          )}
         </CardActions>
       </Box>
       <Box
@@ -79,6 +95,7 @@ const ProductCard = ({ data, handleOpen, addToCart }) => {
             sx={{ width: 300 }}
             image={images[0]}
             alt={product.name}
+            onClick={onClickSample}
           />
         )}
       </Box>

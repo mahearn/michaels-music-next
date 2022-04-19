@@ -6,22 +6,34 @@ const Biography = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>Biography</h2>
       <div>
-        <h3>My Influences</h3>
         <p>
-          Nigel Butterley, Peter Maxwell Davies, Pierre Boulez, Wayne Shorter,
-          Michael Hedges and the Wyndham Hill Records, New Age movement, and
-          folk guitarists like Martin Carthy and Tony McManus.
+          I am a musician and composer living in Sydney Australia. I have a
+          bachelor degree from University of Sydney, where I studied composition
+          with Peter Sculthorpe and Eric Gross.
+        </p>
+        <p>
+          My influences include Nigel Butterley, Peter Maxwell Davies, Pierre
+          Boulez, Wayne Shorter, Michael Hedges and the Wyndham Hill Records,
+          New Age movement, and folk guitarists like Martin Carthy and Tony
+          McManus.
+        </p>
+        <p>
+          You can find a representative sample of my music on the scores for
+          sale page.
+        </p>
+        <p>
+          Here is a link to{' '}
+          <a
+            href='https://www.australianmusiccentre.com.au/artist/ahearn-michael'
+            target='_blank'
+            rel='noreferrer'
+            className={styles.externalLink}
+          >
+            my Australian Music Centre page
+          </a>{' '}
+          <LaunchIcon />
         </p>
       </div>
-      <a
-        href='https://www.australianmusiccentre.com.au/artist/ahearn-michael'
-        target='_blank'
-        rel='noreferrer'
-        className={styles.externalLink}
-      >
-        My Australian Music Centre page
-      </a>{' '}
-      <LaunchIcon />
     </div>
   );
 };
